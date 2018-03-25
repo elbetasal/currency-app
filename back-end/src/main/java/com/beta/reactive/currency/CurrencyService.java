@@ -1,5 +1,6 @@
 package com.beta.reactive.currency;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,23 @@ import java.util.HashMap;
 @Service
 public class CurrencyService {
 
+    private WebClient currencyWebClient;
+
+    private String apiKey;
+
+    public CurrencyService(WebClient currencyWebClient,
+                           @Value("${com.beta.currency.forgex.apiKey}") String apiKey) {
+        this.currencyWebClient = currencyWebClient;
+        this.apiKey = apiKey;
+    }
 
     public Flux<Currency> currencies(String queryCurrencies) {
 
-        WebClient webClient = WebClient.builder().baseUrl("https://forex.1forge.com/")
-                .build();
-        Flux<Currency> currencies = webClient
+        return currencyWebClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/1.0.3/quotes")
                         .queryParam("pairs", queryCurrencies)
-                        .queryParam("api_key", "v2oohGWOwF2VIv9Q2GQDxrfh6FZaUzjq")
+                        .queryParam("api_key", apiKey)
                         .build(new HashMap<>()))
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -31,9 +39,6 @@ public class CurrencyService {
                 .bodyToFlux(Currency.class)
                 .delaySubscription(Duration.ofSeconds(1))
                 .repeat();
-
-
-        return currencies;
     }
 
 }
