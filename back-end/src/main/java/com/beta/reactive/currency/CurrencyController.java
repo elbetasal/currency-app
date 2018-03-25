@@ -18,11 +18,11 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @RestController
 @Configuration
-public class CurrencyEndPoints {
+public class CurrencyController {
 
     private CurrencyService currencyService;
 
-    public CurrencyEndPoints(CurrencyService currencyService) {
+    public CurrencyController(CurrencyService currencyService) {
         this.currencyService = currencyService;
     }
 
