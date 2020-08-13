@@ -8,7 +8,9 @@ pipeline {
             }
         }
         stage('Maven build') {
-          rtMaven.run pom: 'back-end/pom.xml', goals: 'clean install'
+          steps {
+            rtMaven.run pom: 'back-end/pom.xml', goals: 'clean install'
+          }
         }
     }
     post { 
