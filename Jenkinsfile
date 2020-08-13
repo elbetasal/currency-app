@@ -1,5 +1,4 @@
 pipeline {
-    def rtMaven = Artifactory.newMavenBuild()
     agent any
     stages {
         stage('Example') {
@@ -9,7 +8,7 @@ pipeline {
         }
         stage('Maven build') {
           steps {
-            rtMaven.run pom: 'back-end/pom.xml', goals: 'clean install'
+            sh 'mvn -Dmaven.test.failure.ignore=true install'
           }
         }
     }
