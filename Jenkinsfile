@@ -1,15 +1,14 @@
 pipeline {
+    def rtMaven = Artifactory.newMavenBuild()
     agent any
     stages {
-        stage('Checkout') {
-          steps {
-            checkout scm
-          }
-        }
         stage('Example') {
             steps {
                 echo 'Hello World'
             }
+        }
+        stage('Maven build') {
+          rtMaven.run pom: 'back-end/pom.xml', goals: 'clean install'
         }
     }
     post { 
