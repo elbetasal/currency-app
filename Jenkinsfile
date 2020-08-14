@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Maven build') {
           steps {
-            sh 'mvn -Dmaven.test.failure.ignore=true clean package -f back-end/pom.xml'
+            sh 'mvn -Dmaven.test.failure.ignore=true clean install -f back-end/pom.xml'
           }
         }
     }
