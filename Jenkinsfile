@@ -14,7 +14,7 @@ pipeline {
     }
     post { 
         always { 
-            echo 'I will always say Hello againi this is Esau!'
+            echo 'I will always say Hello agai;'
         }
     }
 }
