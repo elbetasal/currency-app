@@ -8,11 +8,14 @@ pipeline {
     stages {
         stage("find-cp_build") {
             steps {
-                def files = findFiles(glob: '**/cp_build.yml')
-                if(files) {
-                    def cpBuild = readYaml file: files[0]
-                    echo("Build was $cpBuild")
+                script {
+                    def files = findFiles(glob: '**/cp_build.yml')
+                    if(files) {
+                        def cpBuild = readYaml file: files[0]
+                        echo("Build was $cpBuild")
+                    }
                 }
+
             }
 
         }
