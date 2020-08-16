@@ -7,11 +7,14 @@ pipeline {
     }
     stages {
         stage("find-cp_build") {
-            def files = findFiles(glob: '**/cp_build.yml')
-            if(files) {
-                def cpBuild = readYaml file: files[0]
-                echo("Build was $cpBuild")
+            steps {
+                def files = findFiles(glob: '**/cp_build.yml')
+                if(files) {
+                    def cpBuild = readYaml file: files[0]
+                    echo("Build was $cpBuild")
+                }
             }
+
         }
         stage('Maven build') {
           steps {
