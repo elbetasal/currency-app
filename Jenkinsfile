@@ -9,9 +9,9 @@ pipeline {
         stage("find-cp_build") {
             steps {
                 script {
-                    def files = findFiles(glob: '**/cp_build.yml')
+                    def files = findFiles(glob: "**/cp_build.yml")
                     if(files) {
-                        def cpBuild = readYaml file: files[0]
+                        def cpBuild = readYaml file: "${files[0]}"
                         echo("Build was $cpBuild")
                     }
                 }
