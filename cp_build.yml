@@ -1,0 +1,8 @@
+build:
+  docker: true
+#  script:
+#  alt_image_builder: jib
+#  secrets:
+#    - sjaksl
+#    - ashkjsaas
+#    - shasjksa
