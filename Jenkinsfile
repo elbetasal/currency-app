@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        DOCKER_BUILD = false
+        DOCKER_DOCKERFILE_LOCATION = ''
+        DOCKER_IMAGE_NAME = ''
+    }
     agent {
       docker {  
         image 'maven:3-alpine'
@@ -12,7 +17,11 @@ pipeline {
                     def files = findFiles(glob: "**/cp_build.yml")
                     if(files) {
                         def cpBuild = readYaml file: "${files[0]}"
-                        echo("Build was $cpBuild")
+                        if(cpBuild.docker) {
+                            env.DOCKER_BUILD = true
+                            env.DOCKERFILE_LOCATION = cp.build.docker.dockerFile
+                            env.DOCKER_IMAGE_NAME = cp.build.docker.imageName
+                        }
                     }
                 }
 
@@ -23,6 +32,13 @@ pipeline {
           steps {
             sh 'mvn -Dmaven.test.failure.ignore=true clean install -f back-end/pom.xml'
           }
+        }
+        stage('Docker build') {
+            steps {
+                docker
+                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
+                        .push()
+            }
         }
     }
     post { 
