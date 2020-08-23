@@ -36,9 +36,9 @@ pipeline {
         }
         stage('Docker build') {
             steps {
-//                docker
-//                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
-//                        .push()
+                docker
+                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
+                        .push()
                 echo ("We will build the docker image")
             }
         }
