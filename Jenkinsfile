@@ -15,14 +15,14 @@ pipeline {
             steps {
                 script {
                     def files = findFiles(glob: "**/cp_build.yml")
-                    if(files) {
-                        def cpBuild = readYaml file: "${files[0]}"
-                        if(cpBuild.docker) {
-                            env.DOCKER_BUILD = true
-                            env.DOCKERFILE_LOCATION = cp.build.docker.dockerFile
-                            env.DOCKER_IMAGE_NAME = cp.build.docker.imageName
-                        }
-                    }
+//                    if(files) {
+//                        def cpBuild = readYaml file: "${files[0]}"
+//                        if(cpBuild.docker) {
+//                            env.DOCKER_BUILD = true
+//                            env.DOCKERFILE_LOCATION = cp.build.docker.dockerFile
+//                            env.DOCKER_IMAGE_NAME = cp.build.docker.imageName
+//                        }
+//                    }
                 }
 
             }
@@ -35,9 +35,9 @@ pipeline {
         }
         stage('Docker build') {
             steps {
-                docker
-                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
-                        .push()
+//                docker
+//                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
+//                        .push()
             }
         }
     }
