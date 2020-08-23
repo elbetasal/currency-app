@@ -1,7 +1,7 @@
 build:
   docker: true
-    dockerFile: ./back-end/
-    imageName: currency-app
+    dockerFile: "./back-end/"
+    imageName: "currency-app"
 #  script:
 #  alt_image_builder: jib
 #  secrets:
