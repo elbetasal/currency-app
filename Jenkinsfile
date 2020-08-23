@@ -38,6 +38,7 @@ pipeline {
 //                docker
 //                        .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
 //                        .push()
+                echo ("We will build the docker image")
             }
         }
     }
