@@ -17,7 +17,7 @@ pipeline {
                     def files = findFiles(glob: "**/cp_build.yml")
                     if(files) {
                         def cpBuild = readYaml file: "${files[0]}"
-                        echo(cpBuild)
+                        echo(cpBuild.toString())
                         if(cpBuild.docker.build) {
                             env.DOCKER_BUILD = true
                             env.DOCKERFILE_LOCATION = cp.build.docker.dockerFile
