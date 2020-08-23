@@ -18,10 +18,10 @@ pipeline {
                     if(files) {
                         def cpBuild = readYaml file: "${files[0]}"
                         echo(cpBuild.toString())
-                        if(cpBuild.docker.build) {
+                        if(cpBuild.build.docker.enable) {
                             env.DOCKER_BUILD = true
-                            env.DOCKERFILE_LOCATION = cp.build.docker.dockerFile
-                            env.DOCKER_IMAGE_NAME = cp.build.docker.imageName
+                            env.DOCKERFILE_LOCATION = cpBuild.build.docker.dockerFile
+                            env.DOCKER_IMAGE_NAME = cpBuild.build.docker.imageName
                         }
                     }
                 }

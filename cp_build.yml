@@ -1,6 +1,6 @@
 build:
   docker:
-    build: true
+    enable: true
     dockerFile: "./back-end/"
     imageName: "currency-app"
 #  script:
