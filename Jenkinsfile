@@ -1,15 +1,13 @@
 pipeline {
     environment {
-        DOCKER_BUILD = false
-        DOCKER_DOCKERFILE_LOCATION = ''
-        DOCKER_IMAGE_NAME = ''
     }
-    agent {
-      docker {  
-        image 'maven:3-alpine'
-        args '-v $HOME/.m2:/root/.m2'
-      }
-    }
+//    agent {
+//      docker {
+//        image 'maven:3-alpine'
+//        args '-v $HOME/.m2:/root/.m2'
+//      }
+//    }
+    agent any
     stages {
         stage("find-cp_build") {
             steps {
