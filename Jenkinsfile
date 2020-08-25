@@ -5,9 +5,12 @@ pipeline {
 //        args '-v $HOME/.m2:/root/.m2'
 //      }
 //    }
+    environment {
+        dockerImage = ''
+    }
     agent any
     stages {
-        stage("find-cp_build") {
+        stage("configuration") {
             steps {
                 script {
                     def files = findFiles(glob: "**/cp_build.yml")
@@ -25,19 +28,21 @@ pipeline {
             }
 
         }
-        stage('Maven build') {
+        stage('build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true clean install -f back-end/pom.xml'
+                sh 'mvn -Dmaven.test.failure.ignore=true clean package -f back-end/pom.xml'
             }
+            steps {
+                dockerImage = docker.build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
+            }
+
         }
         stage('Docker build') {
             steps {
                 echo("Building docker image with ${env.DOCKER_IMAGE_NAME}")
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
-                        docker
-                                .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
-                                .push()
+                       dockerImage.push()
                     }
 
                 }
