@@ -53,6 +53,9 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
                        dockerImage.push()
+                        if(env.GIT_BRANCH == 'master') {
+                            dockerImage.push("latest")
+                        }
                     }
 
                 }
