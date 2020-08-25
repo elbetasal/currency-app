@@ -19,7 +19,6 @@ pipeline {
                             env.DOCKERFILE_LOCATION = cpBuild.build.docker.dockerFile
                             env.DOCKER_IMAGE_NAME = cpBuild.build.docker.imageName
                         }
-                        sh "printenv"
                     }
                 }
 
