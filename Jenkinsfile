@@ -34,6 +34,11 @@ pipeline {
             }
 
         }
+        stage('currency:test') {
+            steps {
+                sh 'mvn test -f back-end/pom.xml'
+            }
+        }
         stage('docker:build'){
             steps {
                 script {
