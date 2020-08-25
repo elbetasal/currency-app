@@ -28,14 +28,22 @@ pipeline {
             }
 
         }
-        stage('build') {
+        stage('currency:build') {
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true clean package -f back-end/pom.xml'
             }
-            steps {
-                dockerImage = docker.build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
-            }
 
+        }
+        stage('docker:build'){
+            steps {
+                script {
+                    if(env.DOCKER_BUILD) {
+                        dockerImage = docker.build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
+                    } else {
+                        echo 'docker build is disabled for project'
+                    }
+                }
+            }
         }
         stage('Docker build') {
             steps {
