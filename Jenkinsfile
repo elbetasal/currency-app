@@ -11,10 +11,10 @@ pipeline {
             steps {
                 script {
                     def files = findFiles(glob: "**/cp_build.yml")
-                    if(files) {
+                    if (files) {
                         def cpBuild = readYaml file: "${files[0]}"
                         echo(cpBuild.toString())
-                        if(cpBuild.build.docker.enable) {
+                        if (cpBuild.build.docker.enable) {
                             env.DOCKER_BUILD = true
                             env.DOCKERFILE_LOCATION = cpBuild.build.docker.dockerFile
                             env.DOCKER_IMAGE_NAME = cpBuild.build.docker.imageName
@@ -27,24 +27,28 @@ pipeline {
 
         }
         stage('Maven build') {
-          steps {
-            sh 'mvn -Dmaven.test.failure.ignore=true clean install -f back-end/pom.xml'
-          }
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true clean install -f back-end/pom.xml'
+            }
         }
         stage('Docker build') {
+            echo("Building docker image with ${env.DOCKER_IMAGE_NAME}")
             steps {
                 script {
-                    docker
-                            .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
-                            .push()
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
+                        docker
+                                .build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
+                                .push()
+                    }
+
                 }
 
-                echo ("We will build the docker image")
+
             }
         }
     }
-    post { 
-        always { 
+    post {
+        always {
             echo 'I will always say Hello agai;'
         }
     }
