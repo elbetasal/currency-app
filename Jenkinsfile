@@ -38,7 +38,8 @@ pipeline {
             steps {
                 script {
                     if(env.DOCKER_BUILD) {
-                        dockerImage = docker.build("pleymo/${env.DOCKER_IMAGE_NAME}:${env.BUILD_ID}", env.DOCKERFILE_LOCATION)
+                        def shortSha = env.GIT_COMMIT.substring(0, 7)
+                        dockerImage = docker.build("pleymo/${env.DOCKER_IMAGE_NAME}:${shortSha}", env.DOCKERFILE_LOCATION)
                     } else {
                         echo 'docker build is disabled for project'
                     }
