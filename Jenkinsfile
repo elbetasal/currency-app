@@ -12,7 +12,6 @@ pipeline {
     stages {
         stage("configuration") {
             steps {
-                sh "printenv"
                 script {
                     def files = findFiles(glob: "**/cp_build.yml")
                     if (files) {
@@ -65,8 +64,8 @@ pipeline {
         }
     }
     post {
-        always {
-            echo 'I will always say Hello agai;'
+        cleanup {
+            cleanWs()
         }
     }
 }
