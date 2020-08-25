@@ -31,8 +31,8 @@ pipeline {
             }
         }
         stage('Docker build') {
-            echo("Building docker image with ${env.DOCKER_IMAGE_NAME}")
             steps {
+                echo("Building docker image with ${env.DOCKER_IMAGE_NAME}")
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
                         docker
