@@ -16,6 +16,7 @@ public class CurrencyService {
 
     private WebClient currencyWebClient;
 
+
     private String apiKey;
 
     public CurrencyService(WebClient currencyWebClient,
