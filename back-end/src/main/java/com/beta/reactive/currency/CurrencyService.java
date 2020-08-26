@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class CurrencyService {
 
     private WebClient currencyWebClient;
+    
 
     private String apiKey;
 
