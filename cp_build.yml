@@ -7,6 +7,11 @@ build:
   docker:
     enable: true
     dockerFile: ./back-end/
+
+test:
+  stages:
+    unit:
+      junit: back-end/target/surefire-reports
 #  script:
 #  alt_image_builder: jib
 #  secrets:
