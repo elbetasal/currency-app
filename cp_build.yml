@@ -10,6 +10,7 @@ build:
 
 test:
   stages:
+    script: mvn test -f back-end/pom.xml
     unit:
       junit: back-end/target/surefire-reports
 #  script:
