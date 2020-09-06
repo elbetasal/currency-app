@@ -1,8 +1,12 @@
+name: currency
+image: currency
+
+
 build:
+  script: ./build.sh
   docker:
     enable: true
     dockerFile: ./back-end/
-    imageName: currency-app
 #  script:
 #  alt_image_builder: jib
 #  secrets:
