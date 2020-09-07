@@ -1,10 +1,12 @@
 name: currency
 image: currency
-
+images:
+  - currencyv1
+  - currencyv2
 
 build:
   script: ./build.sh
-  docker:
+  docker: true
     enable: true
     dockerFile: ./back-end/
 
