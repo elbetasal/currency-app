@@ -6,7 +6,7 @@ images:
 
 build:
   script: ./build.sh
-  docker: true
+  docker:
     enable: true
     dockerFile: ./back-end/
 
