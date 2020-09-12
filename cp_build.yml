@@ -12,8 +12,8 @@ build:
 
 test:
   stages:
-    script: mvn test -f back-end/pom.xml
     unit:
+      script: mvn test -f back-end/pom.xml
       junit: back-end/target/surefire-reports
 #  script:
 #  alt_image_builder: jib
