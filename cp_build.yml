@@ -1,9 +1,21 @@
+name: currency
+image: currency
+images:
+  - currencyv1
+  - currencyv2
+
 build:
-  docker:
-    enable: true
-    dockerFile: ./back-end/
-    imageName: currency-app
-#  script:
+  script: ./build.sh
+
+test:
+  stages:
+    unit:
+      script: mvn test -f back-end/pom.xml
+      junit: back-end/target/surefire-reports
+
+publish:
+  tag:
+    library: java/maven
 #  alt_image_builder: jib
 #  secrets:
 #    - sjaksl
