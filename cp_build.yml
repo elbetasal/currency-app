@@ -6,16 +6,16 @@ images:
 
 build:
   script: ./build.sh
-  docker:
-    enable: true
-    dockerFile: ./back-end/
 
 test:
   stages:
     unit:
       script: mvn test -f back-end/pom.xml
       junit: back-end/target/surefire-reports
-#  script:
+
+publish:
+  tag:
+    library: java/maven
 #  alt_image_builder: jib
 #  secrets:
 #    - sjaksl

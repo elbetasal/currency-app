@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.beta.reactive.currency</groupId>
-	<artifactId>currency-service</artifactId>
+	<artifactId>currency-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>currency-service</name>
+	<name>currency-api</name>
 	<description>Back end to consume Forex Api to show different currencies.</description>
 
 	<parent>
